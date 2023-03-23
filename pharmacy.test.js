@@ -144,4 +144,30 @@ describe("Pharmacy", () => {
       ]).updateBenefitValue()
     ).toEqual([new Drug(testDrugName, expectedExpiresIn, expectedBenefit)]);
   });
+  it("should decrease the benefit twice as fast and expiresIn of a Dafalgan that's not expired", () => {
+    const testDrugExpiresIn = 2;
+    const testDrugBenefit = 3;
+    const testDrugName = "Dafalgan";
+
+    const expectedExpiresIn = 1;
+    const expectedBenefit = 1;
+    expect(
+      new Pharmacy([
+        new Drug(testDrugName, testDrugExpiresIn, testDrugBenefit),
+      ]).updateBenefitValue()
+    ).toEqual([new Drug(testDrugName, expectedExpiresIn, expectedBenefit)]);
+  });
+  it("should decrease the benefit four times as fast and expiresIn of a Dafalgan that's expired", () => {
+    const testDrugExpiresIn = 0;
+    const testDrugBenefit = 5;
+    const testDrugName = "Dafalgan";
+
+    const expectedExpiresIn = -1;
+    const expectedBenefit = 1;
+    expect(
+      new Pharmacy([
+        new Drug(testDrugName, testDrugExpiresIn, testDrugBenefit),
+      ]).updateBenefitValue()
+    ).toEqual([new Drug(testDrugName, expectedExpiresIn, expectedBenefit)]);
+  });
 });

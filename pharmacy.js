@@ -60,6 +60,16 @@ export class Pharmacy {
         case "Magic Pill":
           // Doesn't change in any iteration
           break;
+        case "Dafalgan":
+          drug.expiresIn = drug.expiresIn - 1;
+          if (drug.expiresIn < 0) {
+            // The drug has expired, benefit decreases twice as fast
+            this.updateBenefit(drug, -4);
+          } else {
+            // The drug hasn't expired yet, benefit decreases
+            this.updateBenefit(drug, -2);
+          }
+          break;
         default:
           drug.expiresIn = drug.expiresIn - 1;
           if (drug.expiresIn < 0) {
